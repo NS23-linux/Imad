@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCADA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script defer src="app.js"></script>
+</head>
+<body>
+    <header class="app-header">
+        <div class="container header-inner">
+            <h1>Données</h1>
+            <div class="header-actions">
+                <button id="exportBtn" class="btn btn-primary" aria-label="Export notes to Excel">Export Excel</button>
+                <button id="clearAllBtn" class="btn btn-ghost" aria-label="Clear all notes">Clear All</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="note-form" aria-labelledby="noteFormHeading">
+            <h2 id="noteFormHeading" class="sr-only">Add or edit note</h2>
+            <form id="noteForm" novalidate>
+                <input type="hidden" id="noteId" />
+                <div class="form-grid">
+                    <div class="form-control">
+                        <label for="title">Title<span aria-hidden="true" class="required">*</span></label>
+                        <input id="title" name="title" type="text" placeholder="Meeting notes, Shopping list..." required maxlength="120" />
+                        <div class="error" id="titleError" role="alert"></div>
+                    </div>
+                    
+                </div>
+                <div class="form-control">
+                    <label for="content">Note<span aria-hidden="true" class="required">*</span></label>
+                    <textarea id="content" name="content" rows="5" placeholder="Write your note..." required></textarea>
+                    <div class="error" id="contentError" role="alert"></div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="saveBtn">Save Note</button>
+                    <button type="reset" class="btn btn-ghost" id="resetBtn">Reset</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="note-toolbar" aria-label="Notes toolbar">
+            <div class="toolbar-grid">
+                <div class="search">
+                    <input id="searchInput" type="search" placeholder="Search title, content, or tags" aria-label="Search notes" />
+                </div>
+                <div class="count" aria-live="polite">
+                    <span id="notesCount">0</span> notes
+                </div>
+            </div>
+        </section>
+
+        <section aria-labelledby="notesListHeading">
+            <h2 id="notesListHeading" class="sr-only">Listes de notes</h2>
+            <div id="notesList" class="notes-grid" role="list"></div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <div class="container">
+        </div>
+    </footer>
+</body>
+</html>
+
